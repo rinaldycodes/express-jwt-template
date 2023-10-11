@@ -12,7 +12,8 @@ const authenticateJWT = require('./src/middleware/auth');
 
 // controller
 const TestController = require('./src/controller/TestController')
-const PostController = require('./src/controller/PostController')
+const PostController = require('./src/controller/PostController');
+const AuthController = require('./src/controller/AuthController');
 
 var app = express();
 const port = 3001
@@ -42,6 +43,9 @@ app.use('/users', usersRouter);
 app.get('/tests', TestController.getAllProducts);
 app.get('/tests/:id', TestController.getProductById);
 app.post('/tests', TestController.createProduct);
+
+app.post('/register', AuthController.register);
+app.post('/login', AuthController.login);
 
 
 app.get('/posts', authenticateJWT, PostController.getAllPosts);
