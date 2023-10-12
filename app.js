@@ -6,14 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
-
-// middleware 
-const authenticateJWT = require('./src/middleware/auth');
-
-// controller
-const TestController = require('./src/controller/TestController')
-const PostController = require('./src/controller/PostController');
-const AuthController = require('./src/controller/AuthController');
+var v1Router = require('./routes/v1');
 
 var app = express();
 const port = 3001
@@ -39,19 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
-
-app.get('/tests', TestController.getAllProducts);
-app.get('/tests/:id', TestController.getProductById);
-app.post('/tests', TestController.createProduct);
-
-app.post('/register', AuthController.register);
-app.post('/login', AuthController.login);
-
-
-app.get('/posts', authenticateJWT, PostController.getAllPosts);
-app.get('/posts/:id', authenticateJWT, PostController.getPostById);
-app.post('/posts', authenticateJWT, PostController.createPost);
-
+app.use('/v1', v1Router);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
