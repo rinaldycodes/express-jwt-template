@@ -13,7 +13,7 @@ const port = 3001
 
 // Contoh middleware yang melakukan logging pada setiap permintaan
 const loggerMiddleware = (req, res, next) => {
-  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.url} ${req.body}`);
   next(); // Lanjutkan ke middleware atau rute berikutnya
 };
 
